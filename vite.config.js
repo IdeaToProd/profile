@@ -6,6 +6,7 @@ import path from 'node:path'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()], // React Fast Refresh + JSX 변환
+  base: '/profile/', // GitHub Pages 서브경로 배포용
   resolve: {
     alias: {
       '@': path.resolve(__dirname, 'src'), // 예) import Card from '@/components/ui/Card'

@@ -1,0 +1,8 @@
+<!-- favicon: 브랜드 컬러 조합으로 만든 미니 스티커 아이콘 -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <rect width="64" height="64" rx="14" fill="#0E3B2E"/>
+  <circle cx="22" cy="24" r="10" fill="#F2C14E"/>
+  <circle cx="42" cy="40" r="12" fill="#E4572E"/>
+  <rect x="10" y="44" width="14" height="12" rx="4" fill="#3A86FF"/>
+  <circle cx="46" cy="20" r="5" fill="#FF6B9D"/>
+</svg>

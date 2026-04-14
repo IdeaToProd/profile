@@ -1,0 +1,73 @@
+/*
+  global.css — 전역 스타일 진입점.
+  1) Google Fonts / Pretendard CDN으로 웹폰트 불러오기
+  2) Tailwind의 3대 레이어(@base/@components/@utilities) 주입
+  3) 페이지 기본 배경/텍스트색 지정 (다크 그린 + 크림)
+  4) 접근성: prefers-reduced-motion 대응
+*/
+
+/* Pretendard: 한글/영문 혼용 본문 */
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+/* Bricolage Grotesque: 디스플레이(포스터 무드) */
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ---------- base: 페이지 기본값 ---------- */
+@layer base {
+  html {
+    /* 앵커 클릭 시 스무스 스크롤. NavBar 높이만큼 offset. */
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+  }
+
+  body {
+    /* 다크 그린 배경 + 크림 텍스트를 전역 기본값으로 고정 → 대비 확보 */
+    @apply bg-brand-green text-brand-cream font-sans antialiased;
+    /* 가로 스크롤 방지: 블롭 애니메이션이 뷰포트 밖으로 움직여도 안전 */
+    overflow-x: hidden;
+  }
+
+  /* 선택 시 악센트 색상으로 포커스 링 보이게 */
+  :focus-visible {
+    @apply outline-none ring-2 ring-accent-yellow ring-offset-2 ring-offset-brand-green;
+    border-radius: 4px;
+  }
+
+  /* 제목은 기본적으로 디스플레이 폰트 */
+  h1,
+  h2,
+  h3 {
+    @apply font-display tracking-tight;
+  }
+
+  /* OS에서 '모션 줄이기' 설정 시 CSS 애니메이션 전부 정지 */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+/* ---------- components: 반복되는 복합 유틸 ---------- */
+@layer components {
+  /* 스크린리더 전용(화면에는 숨기되 키보드 포커스는 가능) — Skip Link용 */
+  .sr-only-focusable {
+    @apply sr-only;
+  }
+  .sr-only-focusable:focus {
+    @apply not-sr-only fixed left-4 top-4 z-50 rounded-lg bg-accent-yellow px-4 py-2 text-ink-900;
+  }
+
+  /* 공용 섹션 래퍼: 좌우 여백 + 수직 패딩 + 최대폭 제한 */
+  .section {
+    @apply mx-auto w-full max-w-6xl px-5 py-20 sm:px-8 md:py-28;
+  }
+}
